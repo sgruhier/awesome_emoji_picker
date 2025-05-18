@@ -35,17 +35,38 @@ import '../src/model/emoji.dart';
 const kEmojiList = <Emoji>[
 ''');
 
+  // Set to track unique emojis
+  final seen = <String>{};
+
   for (final obj in list) {
     final e = obj as Map<String, dynamic>;
 
+    // Example of an emoji object
+    //{
+    //   "codes": "1F603",
+    //   "char": "😃",
+    //   "name": "grinning face with big eyes",
+    //   "category": "Smileys & Emotion (face-smiling)",
+    //   "group": "Smileys & Emotion",
+    //   "subgroup": "face-smiling"
+    // },
+
     final char = e['char'] as String;
     final name = e['name'] as String;
-    final group = (e['group'] ?? e['category'] ?? 'Symbols') as String;
+    var group = (e['group']) as String;
 
-    // `keywords` is optional in newer dumps
-    final keywords = (e['keywords'] as List<dynamic>? ?? []).cast<String>();
+    // Group "Smileys & Emotion" and "People & Body" to "Smileys & People"
+    if (group == 'Smileys & Emotion' || group == 'People & Body') {
+      group = 'Smileys & People';
+    }
 
-    buffer.writeln("  Emoji(${jsonEncode(char)}, ${jsonEncode(name)}, ${jsonEncode(group)}, ${jsonEncode(keywords)}),");
+    // Create a unique key for each emoji
+    if (seen.contains(name)) continue;
+    seen.add(name);
+
+    buffer.writeln(
+      "  Emoji(${jsonEncode(char)}, ${jsonEncode(name)}, ${jsonEncode(group)}),",
+    );
   }
 
   buffer.writeln('];');
@@ -53,5 +74,5 @@ const kEmojiList = <Emoji>[
   const outPath = 'lib/generated/emoji_data.dart';
   await File(outPath).create(recursive: true);
   await File(outPath).writeAsString(buffer.toString());
-  stdout.writeln('✅  Wrote $outPath with ${list.length} emoji');
+  stdout.writeln('✅  Wrote $outPath with ${seen.length} emoji');
 }

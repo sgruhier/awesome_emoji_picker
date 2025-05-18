@@ -1,4 +1,4 @@
-# emoji_picker_plus_example
+# awesome_emoji_picker_example
 
 A new Flutter project.
 

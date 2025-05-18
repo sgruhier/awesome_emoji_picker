@@ -1,18 +1,24 @@
-name: emoji_picker_plus
+name: awesome_emoji_picker
 description: Cross‑platform Flutter emoji picker with search, recent, and skin‑tone support.
-version: 0.1.0
-repository: https://github.com/yourname/emoji_picker_plus
+version: 1.0.1
+repository: https://github.com/sgruhier/awesome_emoji_picker
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=3.8.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  collection: ^1.17.0
-  shared_preferences: ^2.2.0
-  path_provider: ^2.0.15
+  collection: ^1.19.1
+  shared_preferences: ^2.5.3
+  path_provider: ^2.1.5
+  flutter_svg: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.6
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - assets/
