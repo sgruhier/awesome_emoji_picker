@@ -1,0 +1,19 @@
+# example/pubspec.yaml
+name: emoji_picker_plus_example # any name you like
+description: Demo for the emoji_picker_plus package
+publish_to: 'none' # keep the example off pub.dev
+version: 1.0.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # <── reference the parent package by *path* so it uses your local source
+  emoji_picker_plus:
+    path: ../ # one level up from /example
+
+flutter:
+  uses-material-design: true
