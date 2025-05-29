@@ -157,7 +157,7 @@ class EmojiRepository extends ChangeNotifier {
   bool isAllowedSkinTone(EmojiModel e) {
     final code = e.char.runes;
 
-    if (code.length > 2) {
+    if (code.where((rune) => rune >= 0x1F3FB && rune <= 0x1F3FF).length > 1) {
       return false;
     }
 
