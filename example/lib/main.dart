@@ -172,11 +172,16 @@ class _HomePageState extends State<HomePage> {
           onEmojiSelected: (emoji) {
             final text = _controller.text;
             final selection = _controller.selection;
-            final newText = text.replaceRange(
-              selection.start,
-              selection.end,
-              emoji.char,
-            );
+            String newText = text;
+            if (selection.start == -1) {
+              newText = text + emoji.char;
+            } else {
+              newText = text.replaceRange(
+                selection.start,
+                selection.end,
+                emoji.char,
+              );
+            }
             _controller.text = newText;
             _controller.selection = TextSelection.collapsed(
               offset: selection.start + emoji.char.length,
