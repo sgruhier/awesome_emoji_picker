@@ -10,33 +10,37 @@ import 'dart:io';
 ///   dart run tool/generate_emoji_data.dart
 ///
 Future<void> main() async {
-  const source = 'https://raw.githubusercontent.com/amio/emoji.json/master/emoji.json';
-  final client = HttpClient();
-  stdout.writeln('Downloading emoji.json …');
+  // const source = 'https://raw.githubusercontent.com/amio/emoji.json/master/emoji.json';
+  // final client = HttpClient();
+  // stdout.writeln('Downloading emoji.json …');
 
-  final request = await client.getUrl(Uri.parse(source));
-  final response = await request.close();
+  // final request = await client.getUrl(Uri.parse(source));
+  // final response = await request.close();
 
-  if (response.statusCode != 200) {
-    stderr.writeln('HTTP ${response.statusCode} — cannot download emoji.json');
-    exitCode = 1;
-    return;
-  }
+  // if (response.statusCode != 200) {
+  //   stderr.writeln('HTTP ${response.statusCode} — cannot download emoji.json');
+  //   exitCode = 1;
+  //   return;
+  // }
 
-  final raw = await response.transform(utf8.decoder).join();
+  // final raw = await response.transform(utf8.decoder).join();
+
+  // Read file emoji.json
+  final raw = await File('tool/emoji.json').readAsString();
   final list = jsonDecode(raw) as List<dynamic>;
 
   final buffer = StringBuffer('''// GENERATED FILE — do not edit by hand.
 // Run `dart run tool/generate_emoji_data.dart` to regenerate.
 // ignore_for_file: constant_identifier_names, prefer_collection_literals
 
-import '../src/model/emoji.dart';
+import 'package:awesome_emoji_picker/awesome_emoji_picker.dart';
 
-const kEmojiList = <Emoji>[
+const kEmojiList = <EmojiModel>[
 ''');
 
   // Set to track unique emojis
   final seen = <String>{};
+  final groups = <String>{};
 
   for (final obj in list) {
     final e = obj as Map<String, dynamic>;
@@ -60,12 +64,14 @@ const kEmojiList = <Emoji>[
       group = 'Smileys & People';
     }
 
+    groups.add(group);
+
     // Create a unique key for each emoji
     if (seen.contains(name)) continue;
     seen.add(name);
 
     buffer.writeln(
-      "  Emoji(${jsonEncode(char)}, ${jsonEncode(name)}, ${jsonEncode(group)}),",
+      "  EmojiModel(${jsonEncode(char)}, ${jsonEncode(name)}, ${jsonEncode(group)}),",
     );
   }
 
@@ -75,4 +81,5 @@ const kEmojiList = <Emoji>[
   await File(outPath).create(recursive: true);
   await File(outPath).writeAsString(buffer.toString());
   stdout.writeln('✅  Wrote $outPath with ${seen.length} emoji');
+  stdout.writeln('Groups: ${groups.join(', ')}');
 }

@@ -171,6 +171,9 @@ repository.addListener(() {
 Unicode regularly adds new emoji. You can regenerate the emoji list with:
 
 ```bash
+cd tool
+node import_emoji.js
+cd ..
 dart run tool/generate_emoji_data.dart
 ```
 
