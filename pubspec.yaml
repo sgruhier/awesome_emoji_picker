@@ -1,6 +1,7 @@
 name: awesome_emoji_picker
 description: Cross‑platform Flutter emoji picker with search, recent, and skin‑tone support.
-version: 1.0.3
+version: 1.0.4
+license: MIT
 repository: https://github.com/sgruhier/awesome_emoji_picker
 environment:
   sdk: '>=3.8.0 <4.0.0'
