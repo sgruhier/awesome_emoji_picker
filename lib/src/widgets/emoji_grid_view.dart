@@ -151,7 +151,15 @@ class _EmojiGridViewState extends State<EmojiGridView> {
   Future<void> _scrollToCategory(String category) async {
     final ctx = widget.headerKeys[category]?.currentContext;
     if (ctx == null) return;
-    await Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 350), curve: Curves.ease, alignment: 0);
+    await Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.ease,
+      alignment: 0.0,
+    );
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(_scrollController.offset - 2);
+    }
   }
 }
 
