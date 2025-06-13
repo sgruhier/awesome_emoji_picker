@@ -196,6 +196,9 @@ class _HomePageState extends State<HomePage> {
           categoryIconSelectedColor: Colors.black,
           categoryBarPadding: const EdgeInsets.all(8),
           categoryBarHeight: 30,
+          iconSize: 30,
+          emojiSize: 40,
+          cellSize: 50,
         ),
       ),
     );
