@@ -180,23 +180,26 @@ class _AwesomeEmojiPickerState extends State<AwesomeEmojiPicker> {
       _updateCategoryOffsets();
     });
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SearchFieldWidget(
-          query: _query,
-          onChanged: (v) => setState(() => _query = v),
-          hintText: widget.searchHintText,
-          textStyle: Theme.of(context).textTheme.bodyMedium,
-        ),
-        if (!searching) ...[
-          _buildCategoryBar(context),
+    return ColoredBox(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SearchFieldWidget(
+            query: _query,
+            onChanged: (v) => setState(() => _query = v),
+            hintText: widget.searchHintText,
+            textStyle: Theme.of(context).textTheme.bodyMedium,
+          ),
+          if (!searching) ...[
+            _buildCategoryBar(context),
+          ],
+          Expanded(
+            child: searching ? _buildSearchResults(context) : _buildGrid(),
+          ),
         ],
-        Expanded(
-          child: searching ? _buildSearchResults(context) : _buildGrid(),
-        ),
-      ],
+      ),
     );
   }
 

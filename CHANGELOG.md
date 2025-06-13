@@ -1,3 +1,8 @@
+## [1.0.4] UI improvements
+
+- Fix: Selected category now highlights correctly in the category bar.
+- Enhancement: Category bar now scrolls horizontally if there isn't enough room to display all categories.
+
 ## [1.0.3] Latest emoji data
 
 - 1.0.3 Update import script and get latest emoji data.
