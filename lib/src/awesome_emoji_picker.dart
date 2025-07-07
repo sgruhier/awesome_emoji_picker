@@ -36,6 +36,7 @@ class AwesomeEmojiPicker extends StatefulWidget {
     this.categoryBarHeight,
     this.skinTone = EmojiSkinTone.normal,
     this.skinToneLabel = 'Skin Tone',
+    this.autofocus = false,
   });
 
   /// Callback that is called when the user selects an emoji.
@@ -83,6 +84,9 @@ class AwesomeEmojiPicker extends StatefulWidget {
 
   /// The widget to render the emoji.
   final Widget Function(EmojiModel)? emojiRenderer;
+
+  /// Whether the search input field should be autofocused when the emoji picker is opened.
+  final bool autofocus;
 
   @override
   State<AwesomeEmojiPicker> createState() => _AwesomeEmojiPickerState();
@@ -191,13 +195,10 @@ class _AwesomeEmojiPickerState extends State<AwesomeEmojiPicker> {
             onChanged: (v) => setState(() => _query = v),
             hintText: widget.searchHintText,
             textStyle: Theme.of(context).textTheme.bodyMedium,
+            autofocus: widget.autofocus,
           ),
-          if (!searching) ...[
-            _buildCategoryBar(context),
-          ],
-          Expanded(
-            child: searching ? _buildSearchResults(context) : _buildGrid(),
-          ),
+          if (!searching) ...[_buildCategoryBar(context)],
+          Expanded(child: searching ? _buildSearchResults(context) : _buildGrid()),
         ],
       ),
     );

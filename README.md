@@ -77,6 +77,7 @@ EmojiPicker(
   cellSize: 48.0,   // Size of grid cells
   categoryBarPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16), // Padding around the category bar
   categoryBarHeight: 48.0, // Height of the category bar
+  autofocus: true,  // Automatically focus the search field when opened
 )
 ```
 
@@ -108,6 +109,8 @@ EmojiPicker(
   searchHintText: 'Rechercher',
   searchResultsText: 'Résultats de recherche',
   skinToneLabel: 'Couleur de peau',
+  // Automatically focus the search field for better UX
+  autofocus: true,
 )
 ```
 

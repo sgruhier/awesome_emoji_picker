@@ -6,12 +6,14 @@ class SearchFieldWidget extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final String hintText;
   final TextStyle? textStyle;
+  final bool autofocus;
 
   const SearchFieldWidget({
     super.key,
     required this.query,
     required this.onChanged,
     required this.hintText,
+    this.autofocus = false,
     this.textStyle,
   });
 
@@ -61,6 +63,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
       child: TextField(
         controller: _controller,
         style: widget.textStyle,
+        autofocus: widget.autofocus,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 2, horizontal: 2),
           hintText: widget.hintText,
